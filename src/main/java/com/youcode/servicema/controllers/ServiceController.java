@@ -17,6 +17,7 @@ public class ServiceController {
     @PostMapping
     public ResponseEntity addService(@RequestBody ServiceDto serviceDto) {
         serviceService.addService(serviceDto);
+        
         return ResponseEntity.ok("Service created successfully");
     }
 }
