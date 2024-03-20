@@ -1,4 +1,4 @@
-package com.youcode.servicema.seeders;
+package com.youcode.servicema.seeder;
 
 import com.youcode.servicema.domain.entities.Authority;
 import com.youcode.servicema.domain.enums.AuthorityEnum;

@@ -32,6 +32,7 @@ public class SecurityConfig {
                 )
                 .sessionManagement(sess->sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authenticationProvider(authProvider)
+                //?UsernamePasswordAuthenticationFilter is the default filter for handling form-based login and forwards the request authentication to the AuthenticationManager
                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
         return http.build();
     }
