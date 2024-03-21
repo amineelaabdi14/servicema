@@ -2,12 +2,14 @@ package com.youcode.servicema.domain.entities;
 
 import jakarta.persistence.*;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 
 @Entity
 @Getter
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @Setter
 public class Comment {
     @Id
@@ -17,4 +19,5 @@ public class Comment {
     Service service;
     @ManyToOne(fetch=FetchType.EAGER)
     User user;
+    String comment;
 }

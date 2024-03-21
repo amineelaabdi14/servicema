@@ -14,6 +14,7 @@ import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.core.context.SecurityContextHolder;
 
 import java.util.List;
+import java.util.Optional;
 
 @org.springframework.stereotype.Service
 @RequiredArgsConstructor
@@ -62,5 +63,14 @@ public class ServiceServiceImpl implements ServiceService {
             return serviceRepository.findAllByTitle(searchKeyword);
         }
         return serviceRepository.findAll();
+    }
+
+    @Override
+    public Optional<Service> getServiceById(Long id) {
+        return serviceRepository.findById(id);
+    }
+    @Override
+    public Service findById(Long id) {
+        return serviceRepository.findById(id).orElse(null);
     }
 }
