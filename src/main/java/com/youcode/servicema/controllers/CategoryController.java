@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 
@@ -25,11 +26,14 @@ public class CategoryController {
     }
 
     @PostMapping()
-    public ResponseEntity<CategoryDto> addCategory(@RequestBody CategoryDto category) {
+    public ResponseEntity addCategory(@RequestBody CategoryDto category) {
         Category newCategory = categoryService.addCategory(Category.builder().name(category.getCategory()).build());
-        return ResponseEntity.ok(CategoryDto.builder()
-                .category(newCategory.getName())
-                .build());
+        return ResponseEntity.ok(new HashMap<>(){
+            {
+                put("message", "Category deleted successfully");
+                put("category", CategoryDto.builder().category(newCategory.getName()).build());
+            }
+        });
     }
     @DeleteMapping("/{id}")
     public ResponseEntity deleteCategory(@PathVariable Long id) {
@@ -37,6 +41,10 @@ public class CategoryController {
             return ResponseEntity.notFound().build();
         }
         categoryService.deleteCategory(id);
-        return ResponseEntity.ok().build();
+        return ResponseEntity.ok(new HashMap<>(){
+            {
+                put("message", "Category deleted successfully");
+            }
+        });
     }
 }
