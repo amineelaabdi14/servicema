@@ -25,6 +25,7 @@ public class AuthorityServiceImpl implements AuthorityService {
     }
     @Override
     public Optional<Authority> getByName(AuthorityEnum authorityEnum) {
+        
         return authorityRepository.findByName(authorityEnum);
     }
 
