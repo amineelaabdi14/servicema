@@ -1,5 +1,6 @@
 package com.youcode.servicema.services.impl;
 
+import com.youcode.servicema.domain.entities.Category;
 import com.youcode.servicema.domain.entities.Service;
 import com.youcode.servicema.domain.entities.User;
 import com.youcode.servicema.dto.requests.ServiceDto;
@@ -25,11 +26,12 @@ public class ServiceServiceImpl implements ServiceService {
     private final UserService userService;
     @Override
     public Service addService(ServiceDto service) {
-        if (!categoryService.getCategoryById(service.getCategoryId()).isPresent()){
+        Optional<Category> category = categoryService.getCategoryById(service.getCategoryId());
+        if (!category.isPresent()){
             throw new CustomException("Category not found", HttpStatus.NOT_FOUND);
         }
         User currentUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        Service myService = ServiceDto.toService(service,currentUser);
+        Service myService = ServiceDto.toService(service,currentUser,category.get());
         serviceRepository.save(myService);
         return myService;
     }
@@ -39,11 +41,13 @@ public class ServiceServiceImpl implements ServiceService {
         if (!serviceRepository.findById(id).isPresent()){
             throw new CustomException("Service not found", HttpStatus.NOT_FOUND);
         }
-        if (!categoryService.getCategoryById(service.getCategoryId()).isPresent()){
+        Optional<Category> category = categoryService.getCategoryById(service.getCategoryId());
+
+        if (category.isPresent()){
             throw new CustomException("Category not found", HttpStatus.NOT_FOUND);
         }
         User currentUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        Service myService = ServiceDto.toService(service,currentUser);
+        Service myService = ServiceDto.toService(service,currentUser,category.get());
         myService.setId(id);
         serviceRepository.save(myService);
         return myService;

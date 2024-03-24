@@ -1,9 +1,12 @@
 package com.youcode.servicema.controllers;
 
+import com.youcode.servicema.domain.entities.RefreshToken;
 import com.youcode.servicema.domain.entities.User;
 import com.youcode.servicema.dto.requests.AuthenticationRequest;
+import com.youcode.servicema.dto.requests.RefreshRequest;
 import com.youcode.servicema.dto.requests.RegisterRequest;
 import com.youcode.servicema.dto.responses.AuthenticationResponse;
+import com.youcode.servicema.dto.responses.RefreshTokenResponse;
 import com.youcode.servicema.security.JwtService;
 import com.youcode.servicema.services.AuthenticationService;
 import com.youcode.servicema.services.RefreshTokenService;
@@ -34,8 +37,8 @@ public class AuhController {
         return ResponseEntity.ok(member);
     }
 
-//    @PostMapping("/refresh")
-//    public ResponseEntity<AuthenticationResponse> refreshToken(@RequestBody @Valid RefreshRequest refreshToken) {
-//        return ResponseEntity.ok(authenticationService.generateRefreshToken(refreshToken.getRefreshToken()));
-//    }
+    @PostMapping("/refresh")
+    public ResponseEntity<RefreshTokenResponse> refreshToken(@RequestBody @Valid RefreshRequest refreshToken) {
+        return ResponseEntity.ok(refreshTokenService.refreshToken(refreshToken));
+    }
 }

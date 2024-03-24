@@ -7,5 +7,5 @@ import java.util.List;
 public interface CityService {
     City getCityByName(String name);
     Boolean saveAll(List<City> cities);
-
+    String[] getCities();
 }

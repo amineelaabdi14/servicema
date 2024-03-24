@@ -22,6 +22,7 @@ public class User implements UserDetails {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
     String email;
+    String job_title;
     String phone;
     String name;
     @ManyToOne

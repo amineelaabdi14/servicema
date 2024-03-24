@@ -1,6 +1,7 @@
 package com.youcode.servicema.services;
 
 import com.youcode.servicema.domain.entities.RefreshToken;
+import com.youcode.servicema.dto.requests.RefreshRequest;
 import com.youcode.servicema.dto.requests.RefreshTokenRequest;
 import com.youcode.servicema.dto.responses.RefreshTokenResponse;
 import org.springframework.stereotype.Component;
@@ -15,5 +16,5 @@ public interface RefreshTokenService {
 
      Optional<RefreshToken> findByToken(String token);
 
-     RefreshTokenResponse refreshToken(RefreshTokenRequest refreshTokenRequestDTO);
+     RefreshTokenResponse refreshToken(RefreshRequest refreshTokenRequestDTO);
 }

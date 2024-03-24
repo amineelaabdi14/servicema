@@ -21,4 +21,8 @@ public class CityServiceImpl implements CityService {
         cityRepository.saveAll(cities);
         return true;
     }
+    @Override
+    public String[] getCities() {
+        return cityRepository.findAll().stream().map(City::getName).toArray(String[]::new);
+    }
 }

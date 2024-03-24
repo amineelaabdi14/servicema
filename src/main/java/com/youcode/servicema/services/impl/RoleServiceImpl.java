@@ -98,5 +98,10 @@ public class RoleServiceImpl implements RoleService {
         if (authorities.contains("DELETE_ROLE"))getById(id).ifPresent(roleRepository::delete);
     }
 
+    @Override
+    public Optional<Role> getRoleByName(String name) {
+        return roleRepository.findByName(name);
+    }
+
 }
 

@@ -26,7 +26,7 @@ public class CommentServiceImpl implements CommentService {
         }
         User currentUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         Comment savedComment = Comment.builder().comment(comment).service(service.get()).user(currentUser).build();
-        commentRepository.save(savedComment);
-        return savedComment;
+        Comment savedComment1 = commentRepository.save(savedComment);
+        return savedComment1;
     }
 }

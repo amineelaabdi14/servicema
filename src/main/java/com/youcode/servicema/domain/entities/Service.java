@@ -22,7 +22,7 @@ public class Service {
     Long id;
     @ManyToOne
     User user;
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne()
     Category category;
     String title;
     String description;

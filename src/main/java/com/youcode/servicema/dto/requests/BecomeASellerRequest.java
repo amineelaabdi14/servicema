@@ -3,11 +3,12 @@ package com.youcode.servicema.dto.requests;
 import lombok.*;
 
 @Builder
+@Setter
+@Getter
 @NoArgsConstructor
 @AllArgsConstructor
-@Getter
-@Setter
-public class CreateComment {
-    private Long serviceId;
-    private String comment;
+public class BecomeASellerRequest {
+    String title;
+    String description;
+    String phone;
 }

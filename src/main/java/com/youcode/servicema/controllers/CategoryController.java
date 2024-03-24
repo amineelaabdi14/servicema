@@ -4,6 +4,7 @@ import com.youcode.servicema.domain.entities.Category;
 import com.youcode.servicema.dto.responses.CategoryDto;
 import com.youcode.servicema.services.CategoryService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -28,12 +29,11 @@ public class CategoryController {
     @PostMapping()
     public ResponseEntity addCategory(@RequestBody CategoryDto category) {
         Category newCategory = categoryService.addCategory(Category.builder().name(category.getCategory()).build());
-        return ResponseEntity.ok(new HashMap<>(){
+        return new ResponseEntity<>(new HashMap<>() {
             {
                 put("message", "Category deleted successfully");
-                put("category", CategoryDto.builder().category(newCategory.getName()).build());
             }
-        });
+        }, HttpStatus.NO_CONTENT);
     }
     @DeleteMapping("/{id}")
     public ResponseEntity deleteCategory(@PathVariable Long id) {

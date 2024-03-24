@@ -1,6 +1,8 @@
 package com.youcode.servicema.controllers;
 
+import com.youcode.servicema.domain.entities.Service;
 import com.youcode.servicema.dto.requests.ServiceDto;
+import com.youcode.servicema.dto.responses.ServiceResponse;
 import com.youcode.servicema.services.ServiceService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -8,6 +10,7 @@ import org.springframework.lang.Nullable;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/services")
@@ -46,6 +49,13 @@ public class ServiceController {
 
     @GetMapping
     public ResponseEntity getServices(@RequestParam @Nullable String searchKeyword) {
-        return ResponseEntity.ok(serviceService.getServices(searchKeyword));
+        List<Service> services = serviceService.getServices(searchKeyword);
+        return ResponseEntity.ok(ServiceResponse.fromServices(services));
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity getService(@PathVariable Long id) {
+        Service service = serviceService.getServiceById(id).orElse(null);
+        return ResponseEntity.ok(ServiceResponse.fromService(service));
     }
 }

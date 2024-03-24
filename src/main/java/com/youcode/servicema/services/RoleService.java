@@ -12,6 +12,8 @@ public interface RoleService {
 
     Role save(Role role, boolean isSeed);
 
+    Optional<Role> getRoleByName(String name);
+
     Optional<Role> findDefaultRole();
 
     Optional<Role> getById(Long id);
