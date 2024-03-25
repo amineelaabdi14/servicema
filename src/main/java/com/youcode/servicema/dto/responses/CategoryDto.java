@@ -12,12 +12,14 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 @NoArgsConstructor
 public class CategoryDto {
+    Long id;
     String category;
 
     public static List<CategoryDto> fromCategoryList(List<Category> categories) {
         return categories.stream()
                 .map(category -> CategoryDto.builder()
                         .category(category.getName())
+                        .id(category.getId())
                         .build())
                 .collect(Collectors.toList());
     }

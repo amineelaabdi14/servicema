@@ -13,4 +13,5 @@ public interface ServiceService {
     public List<Service> getServices(String searchKeyword);
     public Optional<Service> getServiceById(Long id);
     public Service findById(Long id);
+    public List<Service> getServicesByCurrentUser();
 }

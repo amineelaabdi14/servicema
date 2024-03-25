@@ -77,4 +77,9 @@ public class ServiceServiceImpl implements ServiceService {
     public Service findById(Long id) {
         return serviceRepository.findById(id).orElse(null);
     }
+    @Override
+    public List<Service> getServicesByCurrentUser() {
+        User currentUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        return serviceRepository.findAllByUser(currentUser);
+    }
 }

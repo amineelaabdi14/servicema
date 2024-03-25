@@ -9,6 +9,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
+
 @RestController
 @RequestMapping("/api/v1/reports")
 @RequiredArgsConstructor
@@ -25,6 +27,10 @@ public class ReportController {
     @PostMapping
     public ResponseEntity saveReport(@RequestBody CreateReport report){
         Report report1 = reportService.saveReport(report.getServiceId(), report.getMessage());
-        return ResponseEntity.ok(report1);
+        return ResponseEntity.ok(new HashMap<>(){
+            {
+                put("message", "Report added successfully");
+            }
+        });
     }
 }

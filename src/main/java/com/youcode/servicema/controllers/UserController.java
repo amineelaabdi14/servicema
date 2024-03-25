@@ -1,11 +1,14 @@
 package com.youcode.servicema.controllers;
 
 import com.youcode.servicema.domain.entities.City;
+import com.youcode.servicema.domain.entities.RefreshToken;
 import com.youcode.servicema.domain.entities.User;
 import com.youcode.servicema.dto.requests.BecomeASellerRequest;
 import com.youcode.servicema.dto.requests.EditPofileRequest;
+import com.youcode.servicema.dto.responses.AuthenticationResponse;
 import com.youcode.servicema.dto.responses.BecomeASellerResponse;
 import com.youcode.servicema.dto.responses.EditPofileResponse;
+import com.youcode.servicema.services.RefreshTokenService;
 import com.youcode.servicema.services.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -20,6 +23,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class UserController {
     private final UserService userService;
+    private final RefreshTokenService refreshTokenService;
 
     @PutMapping()
     public ResponseEntity<EditPofileResponse> updateUser(@RequestBody EditPofileRequest editProfileRequest) {
@@ -47,5 +51,18 @@ public class UserController {
                     .build());
         }
         return ResponseEntity.notFound().build();
+    }
+
+    @PostMapping("/getByJwt")
+    public ResponseEntity getUserByJwt() {
+        User currentUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        return ResponseEntity.ok(AuthenticationResponse.builder()
+                .name(currentUser.getName())
+                .city(City.builder().name(currentUser.getCity().getName()).build())
+                .description(currentUser.getDescription())
+                .phone(currentUser.getPhone())
+                .email(currentUser.getEmail())
+                .role(currentUser.getRole().getName())
+                .build());
     }
 }

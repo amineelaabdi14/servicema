@@ -4,6 +4,7 @@ import com.youcode.servicema.domain.entities.Service;
 import com.youcode.servicema.dto.requests.ServiceDto;
 import com.youcode.servicema.dto.responses.ServiceResponse;
 import com.youcode.servicema.services.ServiceService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.lang.Nullable;
@@ -18,7 +19,7 @@ import java.util.List;
 public class ServiceController {
     private final ServiceService serviceService;
     @PostMapping
-    public ResponseEntity addService(@RequestBody ServiceDto serviceDto) {
+    public ResponseEntity addService(@RequestBody @Valid ServiceDto serviceDto) {
         serviceService.addService(serviceDto);
 
         return ResponseEntity.ok(new HashMap<>(){
@@ -57,5 +58,11 @@ public class ServiceController {
     public ResponseEntity getService(@PathVariable Long id) {
         Service service = serviceService.getServiceById(id).orElse(null);
         return ResponseEntity.ok(ServiceResponse.fromService(service));
+    }
+
+    @GetMapping("/currentUser")
+        public ResponseEntity getServicesByCurrentUser() {
+        List<Service> services = serviceService.getServicesByCurrentUser();
+        return ResponseEntity.ok(ServiceResponse.fromServices(services));
     }
 }
