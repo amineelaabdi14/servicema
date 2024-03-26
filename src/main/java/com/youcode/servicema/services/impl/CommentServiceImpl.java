@@ -11,6 +11,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.context.SecurityContextHolder;
 
+import java.util.Objects;
 import java.util.Optional;
 
 @org.springframework.stereotype.Service
@@ -25,6 +26,9 @@ public class CommentServiceImpl implements CommentService {
             throw new CustomException("Service not found", HttpStatus.NOT_FOUND);
         }
         User currentUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if (Objects.equals(currentUser.getId(), service.get().getUser().getId())){
+            throw new CustomException("You can't comment on your own service", HttpStatus.BAD_REQUEST);
+        }
         Comment savedComment = Comment.builder().comment(comment).service(service.get()).user(currentUser).build();
         Comment savedComment1 = commentRepository.save(savedComment);
         return savedComment1;

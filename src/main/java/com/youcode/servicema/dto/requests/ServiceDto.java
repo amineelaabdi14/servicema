@@ -13,15 +13,10 @@ import org.springframework.lang.Nullable;
 @Getter
 @Setter
 public class ServiceDto {
-    @NotBlank
     private String title;
-    @NotBlank
     private String description;
-    @NotBlank
     private Long categoryId;
-    @NotBlank
     private Long startingPrice;
-    @NotBlank
     private String image;
     @Nullable
     private Long userId;

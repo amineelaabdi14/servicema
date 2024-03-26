@@ -82,4 +82,5 @@ public class ServiceServiceImpl implements ServiceService {
         User currentUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         return serviceRepository.findAllByUser(currentUser);
     }
+
 }

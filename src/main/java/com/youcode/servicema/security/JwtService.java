@@ -25,7 +25,7 @@ public class JwtService {
     }
 
 
-    //!its a generic method to extract any information from the token
+    //!a generic method to extract any information from the token
     public <T> T extractClaim(String token, Function<Claims, T> claimsResolver){
         final Claims claims = extractAllClaims(token);
         return claimsResolver.apply(claims);
@@ -43,7 +43,7 @@ public class JwtService {
                 .setSubject(userDetails.getUsername())
                 .setIssuedAt(new Date(System.currentTimeMillis()))
                 //!24 for expiration
-                .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 24))
+                .setExpiration(new Date((new Date()).getTime() + 6000000))
                 .signWith(getSigningKey(), SignatureAlgorithm.HS256)
                 .compact();
     }
@@ -62,7 +62,7 @@ public class JwtService {
         return extractClaim(token, Claims::getExpiration);
     }
 
-    //!for retrieveing any information from token we will need the secret key
+    //!for retrieving any information from token we will need the secret key
     private Claims extractAllClaims(String token){
         return Jwts
                 .parserBuilder()

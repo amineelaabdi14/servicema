@@ -18,6 +18,7 @@ public class ServiceResponse {
     String description;
     String category;
     String user;
+    String phone;
     Long startingPrice;;
     String image;
     List<CommentDto> comments;
@@ -53,6 +54,7 @@ public class ServiceResponse {
                 .id(service.getId())
                 .user(service.getUser().getName())
                 .title(service.getTitle())
+                .phone(service.getUser().getPhone())
                 .description(service.getDescription())
                 .category(service.getCategory().getName())
                 .startingPrice(service.getStartingPrice())

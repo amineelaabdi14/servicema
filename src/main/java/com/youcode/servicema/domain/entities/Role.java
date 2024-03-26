@@ -15,11 +15,11 @@ public class Role {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    private String name;
+    Long id;
+    String name;
     @ManyToMany(fetch = FetchType.EAGER)
-    private List<Authority> authorities;
-    private boolean isDefault;
+    List<Authority> authorities;
+    boolean isDefault;
 
 
 }

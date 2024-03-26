@@ -6,4 +6,5 @@ public enum AuthorityEnum {
     DELETE_SERVICE,
     GET_REPORTS,
     VIEW_USERS,
+    BECOME_SELLER
 }

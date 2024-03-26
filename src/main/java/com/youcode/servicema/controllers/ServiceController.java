@@ -8,6 +8,7 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.lang.Nullable;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
@@ -18,6 +19,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ServiceController {
     private final ServiceService serviceService;
+    @PreAuthorize("hasAuthority('ADD_SERVICE')")
     @PostMapping
     public ResponseEntity addService(@RequestBody @Valid ServiceDto serviceDto) {
         serviceService.addService(serviceDto);
@@ -38,6 +40,7 @@ public class ServiceController {
         });
     }
 
+    @PreAuthorize("hasAuthority('DELETE_SERVICE')")
     @DeleteMapping("/{id}")
     public ResponseEntity deleteService(@PathVariable Long id) {
         serviceService.deleteService(id);

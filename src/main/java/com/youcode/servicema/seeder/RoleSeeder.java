@@ -12,6 +12,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
 import java.util.Arrays;
+import java.util.Collections;
 
 @RequiredArgsConstructor
 @Component
@@ -47,9 +48,13 @@ public class RoleSeeder implements CommandLineRunner {
         Authority viewusers = authorityService.getByName(AuthorityEnum.VIEW_USERS)
                 .orElseThrow(() -> new RuntimeException("authority not found"));
 
+        Authority becomeSeller = authorityService.getByName(AuthorityEnum.BECOME_SELLER)
+                .orElseThrow(() -> new RuntimeException("authority not found"));
+
         // Create roles and associate authorities
         Role userRole = Role.builder()
                 .name("USER")
+                .authorities(Collections.singletonList(becomeSeller))
                 .isDefault(true)
                 .build();
 
@@ -60,7 +65,7 @@ public class RoleSeeder implements CommandLineRunner {
 
         Role superAdminRole = Role.builder()
                 .name("ADMIN")
-                .authorities(authorityRepository.findAll())
+                .authorities(Arrays.asList(addservice, editservice, deleteservice, getreports, viewusers))
                 .build();
 
         roleService.save(userRole, true);

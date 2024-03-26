@@ -28,8 +28,8 @@ public class Service {
     String description;
     Long startingPrice;
     String image;
-    @OneToMany(mappedBy = "service")
+    @OneToMany(mappedBy = "service" , cascade = CascadeType.ALL)
     List<Report> reports;
-    @OneToMany(mappedBy = "service")
+    @OneToMany(mappedBy = "service" , cascade = CascadeType.ALL)
     List<Comment> comments;
 }

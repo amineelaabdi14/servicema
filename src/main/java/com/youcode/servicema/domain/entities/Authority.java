@@ -17,12 +17,12 @@ import java.util.List;
 public class Authority {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    Long id;
 
     @ManyToMany(mappedBy = "authorities")
-    private List<Role> roles;
+    List<Role> roles;
 
     @Enumerated(EnumType.STRING)
-    private AuthorityEnum name;
+    AuthorityEnum name;
 }
 

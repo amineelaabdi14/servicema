@@ -13,6 +13,7 @@ import com.youcode.servicema.services.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
@@ -40,6 +41,7 @@ public class UserController {
         return ResponseEntity.notFound().build();
     }
 
+    @PreAuthorize("hasAuthority('BECOME_SELLER')")
     @PostMapping("/becomeSellser")
     public ResponseEntity becomeSellser(@RequestBody BecomeASellerRequest becomeASellerRequest) {
         Optional<User> user = userService.becomeAsellser(becomeASellerRequest);
